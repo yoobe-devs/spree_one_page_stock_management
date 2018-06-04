@@ -1,0 +1,9 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en:
+  spree:
+    current_count_on_hand: Current Count On Hand
+    product_name: Product Name
+    sku_and_options_text: SKU and Options
+    select_stock_location: Select Stock Location

@@ -1,0 +1,53 @@
+body {
+  padding-top: $navbar-height + 2px;
+}
+
+.table-wrapper {
+  overflow: auto;
+}
+
+.row {
+  padding: 0 0 15px 0;
+}
+
+.is-hidden {
+  display: none;
+}
+
+// No-margin and no-padding helper classes
+@each $side in top bottom left right {
+  .no-margin-#{$side}  { margin-#{side}: 0; }
+  .no-padding-#{$side} { padding-#{side}: 0; }
+}
+
+.alert-error {
+  @extend .alert-danger;
+}
+
+.padding-top-none {
+  padding-top: 0 !important;
+}
+.padding-bottom-none {
+  padding-bottom: 0 !important;
+}
+.padding-left-none {
+  padding-left: 0 !important;
+}
+.padding-right-none {
+  padding-right: 0 !important;
+}
+
+.padding-none-horizontal {
+  @extend .padding-left-none;
+  @extend .padding-right-none;
+}
+
+.padding-none-vertical {
+  @extend .padding-top-none;
+  @extend .padding-bottom-none;
+}
+
+.padding-none {
+  @extend .padding-none-horizontal;
+  @extend .padding-none-vertical;
+}

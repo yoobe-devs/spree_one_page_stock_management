@@ -25,6 +25,7 @@ module Spree
         if stock_movement.save
           flash[:success] = flash_message_for(stock_movement, :successfully_created)
           respond_to do |format|
+            format.html { redirect_back fallback_location: spree.stock_admin_product_url(variant.product) }
             format.json { render json: { stock_item: stock_movement.stock_item, message: flash[:success] } }
           end
         else
@@ -36,8 +37,6 @@ module Spree
                 message: flash[:error]
               }, status: :unprocessable_entity
             }
-          end
-          respond_to do |format|
             format.html { redirect_back fallback_location: spree.stock_admin_product_url(variant.product) }
           end
         end
@@ -50,6 +49,19 @@ module Spree
         respond_with(stock_item) do |format|
           format.html { redirect_back fallback_location: spree.stock_admin_product_url(stock_item.product) }
           format.js
+        end
+      end
+
+      def sample_csv
+        send_file STOCK_CSV_FILE[:sample_stock_file]
+      end
+
+      def import
+        begin
+          Spree::StockItem.import(params[:file])
+          redirect_to admin_stock_items_path, notice: "Stock Items updated."
+        rescue
+          redirect_to admin_stock_items_path, notice: "Invalid CSV file format."
         end
       end
 

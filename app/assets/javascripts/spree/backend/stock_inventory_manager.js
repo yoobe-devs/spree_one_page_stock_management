@@ -1,4 +1,4 @@
-//= require per_page_selector
+//= require spree/backend/per_page_selector
 
 function StockInventoryManager(inputs) {
   this.selectBox = inputs.selectBox;

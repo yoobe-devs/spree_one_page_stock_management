@@ -4,7 +4,7 @@ under the spree namespace that do stuff we find helpful.
 Hopefully, this will evolve into a propper class.
 **/
 
-//= require per_page_selector
+//= require spree/backend/per_page_selector
 
 jQuery(function($) {
 

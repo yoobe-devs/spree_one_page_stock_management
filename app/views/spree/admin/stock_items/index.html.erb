@@ -7,7 +7,7 @@
     <%= file_field_tag :file, class: 'file-browse' %>
     <%= submit_tag Spree.t(:import), class: 'btn-success btn' %>
     <br>
-    <%= link_to Spree.t(:example) , sample_csv_admin_stock_items_path %>
+    <%= link_to Spree.t(:example) , sample_csv_admin_stock_items_path, class: 'sample-download' %>
   <% end %>
 <% end %>
 

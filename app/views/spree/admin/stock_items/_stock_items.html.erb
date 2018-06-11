@@ -33,19 +33,19 @@
               <div class='col-md-8 padding-right-none'>
                 <div class="input-group" data-hook='stock-count'>
                   <span class="input-group-btn">
-                    <%= link_to 'javascript:void(0)', class: "btn btn-sm btn-danger",
+                    <%= link_to 'javascript:void(0)', class: "btn btn-sm btn-link",
                       data: { value: "decrease", target: "#number_spinner", toggle: "number_spinner" } do %>
-                      <span class="glyphicon glyphicon-minus"></span>
+                      <span class="glyphicon glyphicon-minus text-danger"></span>
                     <% end %>
                   </span>
-                  <%= text_field_tag 'total_stock_quantity', stock_item.count_on_hand, id: "number_spinner",
-                    size: "10", class: "text-center form-control input-number",
+                  <%= number_field_tag 'total_stock_quantity', stock_item.count_on_hand.to_i, id: "number_spinner",
+                    size: "10", class: "text-center form-control input-number input-sm",
                     data: { hook: 'number_spinner', old_value: stock_item.count_on_hand } %>
 
                   <span class="input-group-btn">
-                    <%= link_to 'javascript:void(0)', class: "btn btn-sm btn-success",
+                    <%= link_to 'javascript:void(0)', class: "btn btn-sm btn-link",
                       data: { value: "increase", target: "#number_spinner", toggle: "number_spinner" } do %>
-                      <span class="glyphicon glyphicon-plus"></span>
+                      <span class="glyphicon glyphicon-plus text-success"></span>
                     <% end %>
                   </span>
                   <%= hidden_field_tag 'stock_movement[quantity]', 0, data: { hook: 'stock_movement_quantity', behavior: 'form' } %>
@@ -54,8 +54,7 @@
                 </div>
               </div>
               <div class='col-md-4'>
-                <%= link_to Spree.t(:save, scope: :actions), 'javascript:void(0)', class: 'submit btn btn-primary action-save',
-                  data: { stock_item: stock_item.id, hook: 'stock_item_submit', href: admin_stock_items_path(stock_item, format: :json) } %>
+                <%= link_to_with_icon('save', '','' , class: 'icon_link btn btn-success btn-sm', data: { stock_item: stock_item.id, hook: 'stock_item_submit', href: admin_stock_items_path(stock_item, format: :json) }) %>
               </div>
             </div>
           </td>

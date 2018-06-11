@@ -23,7 +23,7 @@ CsvInputButton.prototype.submitForm = function() {
 $(function() {
   var inputs = {
     fileInput: $('input#file'),
-    submitButton: $('input[data-disable-with="Bulk Stock Item CSV Import"]'),
+    submitButton: $('input[data-disable-with="Import CSV Stock"]'),
     form: $("form[data-hook='csv_form']")
   },
     csvButtonsManager = new CsvInputButton(inputs);

@@ -17,6 +17,11 @@ Introduction goes here.
   gem 'spree_one_page_stock_management', github: 'vinsol-spree-contrib/spree_one_page_stock_management'
   ```
 
+  Also add this to your Gemfile
+  ```ruby
+  gem 'delayed_job_active_record'
+  ```
+
 2. Install the gem using Bundler:
   ```ruby
   bundle install

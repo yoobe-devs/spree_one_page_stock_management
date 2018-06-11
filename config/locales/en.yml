@@ -7,5 +7,6 @@ en:
     product_name: Product Name
     sku_and_options_text: SKU and Options
     select_stock_location: Select Stock Location
-    import: Bulk Stock Item CSV Import
-    example: Download CSV sample file
+    import: Import CSV Stock
+    example: Download Sample File
+    email_sent: Email with failed stock rows sent.

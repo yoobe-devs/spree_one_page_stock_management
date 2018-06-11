@@ -1,0 +1,10 @@
+<div>
+  <h5>Following Records could not be found. Rest all were updated successfully</h5>
+  <ul>
+    <% @errors.each do |error_name, error_values| %>
+      <li>
+        <%= "#{ error_name.pluralize.humanize } with values #{ error_values.join(', ') }" %>
+      </li>
+    <% end %>
+  </ul>
+</div>

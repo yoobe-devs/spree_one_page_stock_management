@@ -69,7 +69,7 @@ module Spree
 
         def create_stock_updater
           stock_updater = Spree::StockUpdater.create(data_file: params[:file])
-          NotifyFailedStocksService.delay(run_at: 2.minutes.from_now).new(stock_updater.id)
+          NotifyFailedStocksService.delay(run_at: 1.minutes.from_now).new(stock_updater.id)
         end
 
 

@@ -8,7 +8,7 @@ class NotifyFailedStocksService
     @file = stock_updater.data_file
     update_stocks
     stock_updater.update_column(:job_executed, true)
-    Spree::StockUpdaterMailer.update_admin(@errors).deliver_now
+    Spree::StockUpdaterMailer.update_admin(@errors, stock_updater).deliver_now
   end
 
   private

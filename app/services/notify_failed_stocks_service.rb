@@ -9,6 +9,7 @@ class NotifyFailedStocksService
     update_stocks
     stock_updater.update_column(:job_executed, true)
     Spree::StockUpdaterMailer.update_admin(@errors, stock_updater).deliver_now
+    stock_updater.destroy if stock_updater.job_executed?
   end
 
   private

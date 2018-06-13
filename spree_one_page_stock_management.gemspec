@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.description = 'Add (optional) extension description here'
   s.required_ruby_version = '>= 2.2.7'
 
-  s.author    = "Vinsol"
+  s.author    = ['tanmay', 'himanshu']
   s.email     = 'info@vinsol.com'
   s.homepage  = 'https://github.com/vinsol-spree-contrib/spree_one_page_stock_management'
   s.license = 'BSD-3-Clause'

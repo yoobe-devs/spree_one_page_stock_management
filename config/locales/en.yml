@@ -9,4 +9,4 @@ en:
     select_stock_location: Select Stock Location
     import: Import CSV Stock
     example: Download Sample File
-    email_sent: Email with failed stock rows sent.
+    email_sent: Email with import data status has been mailed.

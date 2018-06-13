@@ -4,35 +4,38 @@ class NotifyFailedStocksService
 
   def initialize(stock_updater_id)
     @errors = Hash.new(Array.new())
-    stock_updater = Spree::StockUpdater.find(stock_updater_id)
-    @file = stock_updater.data_file
+    @stock_updater = Spree::StockUpdater.find_by(id: stock_updater_id)
     update_stocks
-    stock_updater.update_column(:job_executed, true)
-    Spree::StockUpdaterMailer.update_admin(@errors, stock_updater).deliver_now
-    stock_updater.destroy if stock_updater.job_executed?
+    @stock_updater.update_column(:job_executed, true)
+    Spree::StockUpdaterMailer.update_admin(@errors, @stock_updater).deliver_now
+    @stock_updater.destroy if @stock_updater.job_executed?
   end
 
   private
     def update_stocks
-      CSV.foreach(@file.path, headers: true) do |row|
+      CSV.foreach(@stock_updater.data_file.path, headers: true) do |row|
         @row = row
         find_variant_and_stock_location
         if @variant && @stock_location
           @stock_item = Spree::StockItem.find_by(variant_id: @variant.id, stock_location_id: @stock_location.id)
-          if @stock_item
-            set_backorderable(@row['backorderable'].to_s.downcase)
-            set_count_on_hand
-            update_stock_item
-          else
-            @errors['stock_items'] += ["#{row['uid']} and #{row['stock_location_name']} "]
-          end
+          update_stocks_with_csv_values
         else
           if @variant
-            @errors['stock_location'] += [row['stock_location_name']]
+            @errors['stock_location'] += [@row['stock_location_name']]
           else
-            @errors['variant'] += [row['uid']]
+            @errors['variant'] += [@row['uid']]
           end
         end
+      end
+    end
+
+    def update_stocks_with_csv_values
+      if @stock_item
+        set_backorderable(@row['backorderable'].to_s.downcase)
+        set_count_on_hand
+        update_stock_item
+      else
+        @errors['stock_items'] += ["#{@row['uid']} and #{@row['stock_location_name']}"]
       end
     end
 
@@ -52,11 +55,7 @@ class NotifyFailedStocksService
     end
 
     def set_count_on_hand
-      if @row['count_on_hand']
-        @count_on_hand = @row['count_on_hand'].to_i
-      else
-        @count_on_hand = @stock_item.count_on_hand
-      end
+      @count_on_hand = @row['count_on_hand'].scan(/\D/).empty? ? @row['count_on_hand'] : @stock_item.count_on_hand
     end
 
     def update_stock_item

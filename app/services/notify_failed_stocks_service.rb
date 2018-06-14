@@ -55,7 +55,7 @@ class NotifyFailedStocksService
     end
 
     def set_count_on_hand
-      @count_on_hand = @row['count_on_hand'].scan(/\D/).empty? ? @row['count_on_hand'] : @stock_item.count_on_hand
+      @count_on_hand = ( @row['count_on_hand'] && @row['count_on_hand'].scan(/\D/).empty? ) ? @row['count_on_hand'] : @stock_item.count_on_hand
     end
 
     def update_stock_item

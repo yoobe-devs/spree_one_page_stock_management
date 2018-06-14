@@ -10,3 +10,4 @@ en:
     import: Import CSV Stock
     example: Download Sample File
     email_sent: Email with import data status has been mailed.
+    mail_to_address: Email to recieve mails

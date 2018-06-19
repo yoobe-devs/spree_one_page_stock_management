@@ -1,14 +1,8 @@
 <div>
-  <% unless @errors.empty? %>
-    <h5>Following Records could not be found. Rest all were updated successfully</h5>
-    <ul>
-      <% @errors.each do |error_name, error_values| %>
-        <li>
-          <%= "#{ error_name.pluralize.humanize } with values #{ error_values.join(', ') }" %>
-        </li>
-      <% end %>
-    </ul>
-  <% else %>
-    <h5>All stocks were successfully updated.</h5>
-  <% end %>
+  <h5><%= Spree.t(:update_status) %></h5>
+  <ul>
+    <li>Number of records imported : <%= @total_records %> </li>
+    <li>Number of records failed : <%= @failed_records %> </li>
+  </ul>
+  <strong>Attached is a csv file of failed records for your information.</strong>
 </div>

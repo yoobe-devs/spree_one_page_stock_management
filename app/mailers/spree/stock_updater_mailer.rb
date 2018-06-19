@@ -1,10 +1,11 @@
 module Spree
   class StockUpdaterMailer < BaseMailer
-    def update_admin(errors, stock_updater)
-      attachments['stock_items.csv'] = File.read(stock_updater.data_file.path)
-      @errors = errors
-      subject = "#{Spree::Store.current.name} : Failed Rows While Stock Updation"
-      mail(to: admin_email_notify_address, from: from_address, subject: subject)
+    def update_admin(status_csv, admin_email, filename, total_records, successfull_records)
+      @total_records = total_records
+      @failed_records = total_records - successfull_records
+      attachments['stock_items.csv'] = status_csv
+      subject = "#{Spree::Store.current.name} import of #{ filename } has finished"
+      mail(to: admin_email_notify_address, cc: admin_email, from: from_address, subject: subject)
     end
 
     private

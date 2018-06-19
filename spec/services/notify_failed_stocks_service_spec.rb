@@ -4,13 +4,9 @@ describe NotifyFailedStocksService do
   let!(:stock_updater) { FactoryBot.create(:stock_updater) }
   let!(:variant) { FactoryBot.create(:variant) }
   let!(:stock_location) { FactoryBot.create(:stock_location) }
-  let(:service) { NotifyFailedStocksService.new(stock_updater.id) }
+  let(:service) { NotifyFailedStocksService.new(stock_updater.id, 'test@gmail.com') }
 
   describe 'initialize' do
-    it "is expected to set an error instance variable" do
-      expect(service.instance_variable_get(:@errors).class).to eq(Hash)
-    end
-
     it "is expected to set an stock updater intance variable" do
       expect(service.instance_variable_get(:@stock_updater).class).to eq(Spree::StockUpdater)
     end
@@ -20,13 +16,14 @@ describe NotifyFailedStocksService do
     end
 
     it 'sends the mail to the admin emails' do
-      expect { NotifyFailedStocksService.new(stock_updater.id) }.to change { ActionMailer::Base.deliveries.count }.by(1)
+      expect { NotifyFailedStocksService.new(stock_updater.id, 'test@gmail.com') }.to change { ActionMailer::Base.deliveries.count }.by(1)
     end
 
     it "expecs to destroy the stock updater data file" do
       expect(service.instance_variable_get(:@stock_updater).data_file.path).to eq(nil)
     end
   end
+
 
   describe 'find_variant_and_stock_location' do
 
@@ -108,6 +105,18 @@ describe NotifyFailedStocksService do
     end
   end
 
+  describe 'error_message' do
+    context "when error is not present" do
+      it { expect(service.send :error_message).to eq('Successfully Updated') }
+    end
+
+    context "when error is present" do
+      before { service.instance_variable_set(:@error, 'Some error') }
+      it { expect(service.send :error_message).to eq('Some error') }
+    end
+  end
+
+
   describe 'update_stocks' do
     it "is expected to set a csv row instance variable" do
       expect(service.instance_variable_get(:@row).class).to eq(CSV::Row)
@@ -119,28 +128,28 @@ describe NotifyFailedStocksService do
 
     context "when variant instance variable is nil" do
       let(:stock_updater_with_fault_variant) { FactoryBot.create(:stock_updater_with_fault_variant) }
-      let(:service_with_fault_variant) { NotifyFailedStocksService.new(stock_updater_with_fault_variant.id) }
+      let(:service_with_fault_variant) { NotifyFailedStocksService.new(stock_updater_with_fault_variant.id, 'test@gmail.com') }
 
       it 'is expected to set error message' do
-        expect(service_with_fault_variant.instance_variable_get(:@errors)['variant']).to eq([service_with_fault_variant.instance_variable_get(:@row)['uid']])
+        expect(service_with_fault_variant.instance_variable_get(:@error)).to eq('Product not found')
       end
     end
 
     context "when stock location instance variable is nil" do
       let(:stock_updater_with_fault_stock_location) { FactoryBot.create(:stock_updater_with_fault_stock_location) }
-      let(:service_with_fault_stock_location) { NotifyFailedStocksService.new(stock_updater_with_fault_stock_location.id) }
+      let(:service_with_fault_stock_location) { NotifyFailedStocksService.new(stock_updater_with_fault_stock_location.id, 'test@gmail.com') }
 
       it 'is expected to set error message' do
-        expect(service_with_fault_stock_location.instance_variable_get(:@errors)['stock_location']).to eq([service_with_fault_stock_location.instance_variable_get(:@row)['stock_location_name']])
+        expect(service_with_fault_stock_location.instance_variable_get(:@error)).to eq('Stock Location Not found')
       end
     end
 
     context "when stock item instance variable is nil" do
       before { Spree::StockItem.all.map(&:destroy) }
-      let(:service_with_fault_stock_item) { NotifyFailedStocksService.new(stock_updater.id) }
+      let(:service_with_fault_stock_item) { NotifyFailedStocksService.new(stock_updater.id, 'test@gmail.com') }
 
       it 'is expected to set error message' do
-        expect(service_with_fault_stock_item.instance_variable_get(:@errors)['stock_items']).to eq(["#{service_with_fault_stock_item.instance_variable_get(:@row)['uid']} and #{service_with_fault_stock_item.instance_variable_get(:@row)['stock_location_name']}"])
+        expect(service_with_fault_stock_item.instance_variable_get(:@error)).to eq('Stock Item not found')
       end
     end
   end

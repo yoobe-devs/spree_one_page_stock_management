@@ -59,7 +59,7 @@ module Spree
       def import
         begin
           create_stock_updater
-          redirect_to admin_stock_items_path, notice: Spree.t(:email_sent)
+          redirect_to admin_stock_items_path, notice: Spree.t(:email_sent, filename: @stock_updater.data_file_file_name)
         rescue
           redirect_to admin_stock_items_path, notice: "Invalid CSV file format."
         end
@@ -68,8 +68,8 @@ module Spree
       private
 
         def create_stock_updater
-          stock_updater = Spree::StockUpdater.create(data_file: params[:file])
-          NotifyFailedStocksService.delay(run_at: 1.minutes.from_now).new(stock_updater.id)
+          @stock_updater = Spree::StockUpdater.create(data_file: params[:file])
+          NotifyFailedStocksService.delay(run_at: 1.minutes.from_now).new(@stock_updater.id, try_spree_current_user.email)
         end
 
 

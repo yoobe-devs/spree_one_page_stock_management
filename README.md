@@ -1,6 +1,8 @@
 SpreeOnePageStockManagement
 ===========================
 
+This extension allows admin to update stock inventories from a single page inventory management panel through a csv or through inventory list UI.
+
 Demo
 -----------------------------------
 Try Spree Extension Admin Activity Tracker for Spree 3-4 with direct deployment on Heroku:
@@ -8,7 +10,6 @@ Try Spree Extension Admin Activity Tracker for Spree 3-4 with direct deployment 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/vinsol-spree-contrib/spree-demo-heroku/tree/spree-one-page-stock-management)
 
 
-Introduction goes here.
 
 ## Installation
 
@@ -80,4 +81,4 @@ Credits
 
 [![vinsol.com: Ruby on Rails, iOS and Android developers](http://vinsol.com/vin_logo.png "Ruby on Rails, iOS and Android developers")](http://vinsol.com)
 
-Copyright (c) 2017 [vinsol.com](http://vinsol.com "Ruby on Rails, iOS and Android developers"), released under the New MIT License
+Copyright (c) 2018 [vinsol.com](http://vinsol.com "Ruby on Rails, iOS and Android developers"), released under the New MIT License

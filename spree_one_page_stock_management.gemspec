@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_one_page_stock_management'
   s.version     = SpreeOnePageStockManagement.version
-  s.summary     = 'Add extension summary here'
-  s.description = 'Add (optional) extension description here'
+  s.summary     = 'This extension allows admin to update stock inventories from a single page inventory management panel through a csv or through inventory list UI.'
+  s.description = 'This extension allows admin to update stock inventories from a single page inventory management panel through a csv or through inventory list UI.'
   s.required_ruby_version = '>= 2.2.7'
 
   s.author    = ['tanmay', 'himanshu']

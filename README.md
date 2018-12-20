@@ -67,6 +67,12 @@ Simply add this require statement to your spec_helper:
 require 'spree_one_page_stock_management/factories'
 ```
 
+## See It In Action
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=H6iUrRlGIkM
+" target="_blank"><img src="http://img.youtube.com/vi/H6iUrRlGIkM/0.jpg" 
+alt="Youtube Video Tutorial" /></a>
+
+
 
 ## Contributing
 

@@ -23,6 +23,12 @@ Introduction goes here.
 4. Restart your server
 
   If your server was running, restart it so that it can find the assets properly.
+  
+Demo
+----
+Try Spree One Page Stock Management for Spree 4.1 with direct deployment on Heroku:
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/vinsol-spree-contrib/spree-demo-heroku/tree/spree-one-page-stock-management-4-1)
 
 ## Testing
 
